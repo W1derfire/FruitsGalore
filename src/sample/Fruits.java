@@ -3,6 +3,7 @@ package sample;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import java.io.File;
@@ -11,17 +12,17 @@ import java.util.*;
 
 public class Fruits extends Food implements Serializable {
 
-        static ObservableList<Fruits> fruits;
+        static private ObservableList<Fruits> fruits = FXCollections.observableArrayList();
 
-        public int potassium;
-        public int fiber;
-        public int protein;
-        public int sugar;
-        public int calcium;
-        public int iron;
+        transient private final SimpleIntegerProperty potassium = new SimpleIntegerProperty();
+    transient private final SimpleIntegerProperty fiber = new SimpleIntegerProperty();
+    transient private final SimpleIntegerProperty protein = new SimpleIntegerProperty();
+    transient private final SimpleIntegerProperty sugar = new SimpleIntegerProperty();
+    transient private final SimpleIntegerProperty calcium = new SimpleIntegerProperty();
+    transient private final SimpleIntegerProperty iron = new SimpleIntegerProperty();
 
-        public int vitaminA;
-        public int vitaminC;
+    transient private final SimpleIntegerProperty vitaminA = new SimpleIntegerProperty();
+    transient private final SimpleIntegerProperty vitaminC = new SimpleIntegerProperty();
 
         //public int ranking;
 
@@ -29,17 +30,21 @@ public class Fruits extends Food implements Serializable {
 
             super(name,servingSize,calories,fat,sodium,carbs);
 
-            this.potassium = potassium;
-            this.fiber = fiber;
-            this.protein = protein;
-            this.sugar = sugar;
-            this.calcium = calcium;
-            this.iron = iron;
+            setPotassium(potassium);
+            setFiber(fiber);
+            setProtein(protein);
+            setSugar(sugar);
+            setCalcium(calcium);
+            setIron(iron);
 
-            this.vitaminA = vitaminA;
-            this.vitaminC = vitaminC;
+            setVitaminA(vitaminA);
+            setVitaminC(vitaminC);
 
         }
+
+    public static ObservableList<Fruits> getFruitList() {
+        return fruits;
+    }
 
         static void addEmptyFruit() {
             fruits.add(new Fruits("", "", 0,0,0,0,0,0,0,0,0,0,0,0));
@@ -90,11 +95,15 @@ public class Fruits extends Food implements Serializable {
                     int iron = lineScanner.nextInt();
 
                     Fruits newFruit = new Fruits(name,size,calories,fat,sodium,potassium,carbs,fiber,sugar,protein,vitaminA,vitaminC,calcium,iron);
+                    System.out.println(newFruit.getName());
                     fruits.add(newFruit);
                     ranking = ranking + 1;
                 }
             } catch (Exception ex) {
-                ex.printStackTrace();
+                //ex.printStackTrace();
+                System.out.println(ex.getCause());
+                System.out.println(ex.getLocalizedMessage());
+                System.out.println(ex+"\nThere was an error. Oops!");
             }
 
         }
@@ -103,67 +112,67 @@ public class Fruits extends Food implements Serializable {
 
 
         public int getPotassium() {
-            return potassium;
+            return potassium.get();
         }
 
         public void setPotassium(int potassium) {
-            this.potassium = potassium;
+            this.potassium.set(potassium);
         }
 
         public int getFiber() {
-            return fiber;
+            return fiber.get();
         }
 
         public void setFiber(int fiber) {
-            this.fiber = fiber;
+            this.fiber.set(fiber);
         }
 
         public int getProtein() {
-            return protein;
+            return protein.get();
         }
 
         public void setProtein(int protein) {
-            this.protein = protein;
+            this.protein.set(protein);
         }
 
         public int getSugar() {
-            return sugar;
+            return sugar.get();
         }
 
         public void setSugar(int sugar) {
-            this.sugar = sugar;
+            this.sugar.set(sugar);
         }
 
         public int getCalcium() {
-            return calcium;
+            return calcium.get();
         }
 
         public void setCalcium(int calcium) {
-            this.calcium = calcium;
+            this.calcium.set(calcium);
         }
 
         public int getIron() {
-            return iron;
+            return iron.get();
         }
 
         public void setIron(int iron) {
-            this.iron = iron;
+            this.iron.set(iron);
         }
 
         public int getVitaminA() {
-            return vitaminA;
+            return vitaminA.get();
         }
 
         public void setVitaminA(int vitaminA) {
-            this.vitaminA = vitaminA;
+            this.vitaminA.set(vitaminA);
         }
 
         public int getVitaminC() {
-            return vitaminC;
+            return vitaminC.get();
         }
 
         public void setVitaminC(int vitaminC) {
-            this.vitaminC = vitaminC;
+            this.vitaminC.set(vitaminC);
         }
 
         public void describe() {

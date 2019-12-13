@@ -211,7 +211,7 @@ public class Controller {
         );
 
 
-                table.setItems(Fruits.getFruits());
+                table.setItems(Fruits.getFruitList());
                 table.setEditable(true);
 
 
