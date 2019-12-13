@@ -1,13 +1,17 @@
 package sample;
+
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleDoubleProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.collections.ListChangeListener;
+import javafx.collections.ObservableList;
 import java.io.File;
 import java.io.Serializable;
-import java.util.ArrayList;
-
-import java.util.Scanner;
+import java.util.*;
 
 public class Fruits extends Food implements Serializable {
 
-        static ArrayList<Fruits> fruits;
+        static ObservableList<Fruits> fruits;
 
         public int potassium;
         public int fiber;
@@ -37,14 +41,18 @@ public class Fruits extends Food implements Serializable {
 
         }
 
+        static void addEmptyFruit() {
+            fruits.add(new Fruits("", "", 0,0,0,0,0,0,0,0,0,0,0,0));
+        }
+
         static void readFruits(){
 
-            fruits = new ArrayList<Fruits>();
+            //fruits = new ArrayList<Fruits>();
 
 
 
             // create array list class field where albums will be stored
-            fruits = new ArrayList<Fruits>();
+            //fruits = new ArrayList<Fruits>();
 
             try {
                 // scan data file line-by-line
@@ -164,9 +172,9 @@ public class Fruits extends Food implements Serializable {
 
 
 
-        static Fruits getFruits(int i){
+        static ObservableList<Fruits> getFruits(){
 
-            return fruits.get(i);
+            return fruits;
 
         }
 

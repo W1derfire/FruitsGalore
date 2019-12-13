@@ -1,6 +1,9 @@
 package sample;
 import java.io.Serializable;
 import java.util.ArrayList;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.SimpleDoubleProperty;
 
 class Food implements Serializable {
 

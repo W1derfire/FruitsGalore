@@ -17,7 +17,7 @@ public class Controller {
     //public ComboBox box;
     public Button button;
     public TableView <Fruits> table;
-    public Button addButton;
+    public Button addFruitButton;
     //public Button goAwayButton;
 
     public TableColumn col1;
@@ -211,12 +211,7 @@ public class Controller {
         );
 
 
-                for(int i = 0; i < Fruits.fruits.size(); i ++){
-
-                     table.getItems().add(Fruits.getFruits(i));
-
-                }
-
+                table.setItems(Fruits.getFruits());
                 table.setEditable(true);
 
 
@@ -227,6 +222,15 @@ public class Controller {
 
 
     }
+
+    public void addRow() {
+        // Update model
+        System.out.println("This is happening!");
+        Fruits.addEmptyFruit();
+        // Update status
+        //statusLabel.setText("Added empty album.  Go ahead and edit its data.");
+    }
+
 
 
 }
