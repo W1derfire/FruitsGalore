@@ -9,10 +9,16 @@ import javafx.collections.ObservableList;
 import java.io.File;
 import java.io.Serializable;
 import java.util.*;
+import java.io.*;
 
 public class Fruits extends Food implements Serializable {
 
         static private ObservableList<Fruits> fruits = FXCollections.observableArrayList();
+
+        static private File fruitFile = new File("res/FruitFile");
+        static private FileOutputStream streamOut;
+        static private ObjectOutputStream objectsOut;
+
 
         transient private final SimpleIntegerProperty potassium = new SimpleIntegerProperty();
     transient private final SimpleIntegerProperty fiber = new SimpleIntegerProperty();
@@ -42,6 +48,23 @@ public class Fruits extends Food implements Serializable {
 
         }
 
+
+        static void saveFruits(){
+            try {
+
+                objectsOut = new ObjectOutputStream(streamOut);
+
+                for(int i = 0; i < fruits.size(); i ++){
+
+                }
+
+            }catch (Exception e){
+                System.out.println(e.getCause());
+            }
+
+        }
+
+
     public static ObservableList<Fruits> getFruitList() {
         return fruits;
     }
@@ -52,16 +75,9 @@ public class Fruits extends Food implements Serializable {
 
         static void readFruits(){
 
-            //fruits = new ArrayList<Fruits>();
-
-
-
-            // create array list class field where albums will be stored
-            //fruits = new ArrayList<Fruits>();
-
             try {
                 // scan data file line-by-line
-                File albumDataFile = new File("res/Fruits");
+                File albumDataFile = new File("res/FruitFile");
                 Scanner scanner = new Scanner(albumDataFile);
                 int ranking = 1;
                 while (scanner.hasNextLine()){
@@ -72,7 +88,6 @@ public class Fruits extends Food implements Serializable {
                     lineScanner.useDelimiter("#");
                     // scan data files line by separating text between #
 
-                    // first 4 data values are always present in each line
                     String name = lineScanner.next();
                     String size = lineScanner.next();
                     int calories = lineScanner.nextInt();
@@ -95,20 +110,71 @@ public class Fruits extends Food implements Serializable {
                     int iron = lineScanner.nextInt();
 
                     Fruits newFruit = new Fruits(name,size,calories,fat,sodium,potassium,carbs,fiber,sugar,protein,vitaminA,vitaminC,calcium,iron);
-                    System.out.println(newFruit.getName());
+                    //System.out.println(newFruit.getName());
                     fruits.add(newFruit);
                     ranking = ranking + 1;
                 }
             } catch (Exception ex) {
-                //ex.printStackTrace();
-                System.out.println(ex.getCause());
-                System.out.println(ex.getLocalizedMessage());
-                System.out.println(ex+"\nThere was an error. Oops!");
+                System.out.println("The former code is dead now.");
+                ex.printStackTrace();
             }
 
         }
 
 
+    static void readFile(File file){
+
+        try {
+            Scanner scanner = new Scanner(file);
+            int ranking = 1;
+            while (scanner.hasNextLine()){
+                //System.out.println("while loop");
+
+                String str = scanner.nextLine();
+                Scanner lineScanner = new Scanner(str);
+                lineScanner.useDelimiter("#");
+                // scan data files line by separating text between #
+
+                String name = lineScanner.next();
+                String size = lineScanner.next();
+                int calories = lineScanner.nextInt();
+                lineScanner.nextInt();
+                double fat = lineScanner.nextDouble();
+                lineScanner.nextInt();
+                int sodium = lineScanner.nextInt();
+                lineScanner.nextInt();
+                int potassium = lineScanner.nextInt();
+                lineScanner.nextInt();
+                int carbs = lineScanner.nextInt();
+                lineScanner.nextInt();
+                int fiber = lineScanner.nextInt();
+                lineScanner.nextInt();
+                int sugar = lineScanner.nextInt();
+                int protein = lineScanner.nextInt();
+                int vitaminA = lineScanner.nextInt();
+                int vitaminC = lineScanner.nextInt();
+                int calcium = lineScanner.nextInt();
+                int iron = lineScanner.nextInt();
+
+                Fruits newFruit = new Fruits(name,size,calories,fat,sodium,potassium,carbs,fiber,sugar,protein,vitaminA,vitaminC,calcium,iron);
+                //System.out.println(newFruit.getName());
+                fruits.add(newFruit);
+                ranking = ranking + 1;
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+
+            System.out.println(ex+"\nThere was an error. Oops!");
+        }
+
+    }
+
+
+        public String printOut(){
+            return (this.getName() + "#" + this.getServingSize() + "#" + this.getCalories() + "#" + this.getTotalFat() + "#" + this.getSodium() + "#"
+            + this.getPotassium() + "#" + this.getCarbs() + "#" + this.getFiber() + "#" + this.getSugar() + "#" + this.getProtein() + "#"
+            + this.getVitaminA() + "#" + this.getVitaminC() + "#" + this.getCalcium() + "#" + this.getIron() + "\n");
+        }
 
 
         public int getPotassium() {

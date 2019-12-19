@@ -7,7 +7,7 @@ import javafx.beans.property.SimpleDoubleProperty;
 
 class Food implements Serializable {
 
-        transient private final SimpleStringProperty name = new SimpleStringProperty();
+        transient private final SimpleStringProperty name = new SimpleStringProperty("");
         transient private final SimpleIntegerProperty calories = new SimpleIntegerProperty();
         transient private final SimpleDoubleProperty totalFat = new SimpleDoubleProperty();
         transient private final SimpleIntegerProperty sodium = new SimpleIntegerProperty();

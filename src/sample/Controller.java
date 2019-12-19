@@ -5,20 +5,29 @@ import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+
+import java.io.File;
 import java.util.ArrayList;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.control.TableColumn.CellEditEvent;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.stage.Stage;
 import javafx.util.converter.DoubleStringConverter;
 import javafx.util.converter.IntegerStringConverter;
+import javafx.stage.FileChooser;
 
 
 public class Controller {
 
+    Stage primaryStage;
     //public ComboBox box;
     public Button button;
     public TableView <Fruits> table;
     public Button addFruitButton;
     //public Button goAwayButton;
+
+    public FileChooser chooser = new FileChooser();
 
     public TableColumn col1;
     public TableColumn col2;
@@ -35,12 +44,14 @@ public class Controller {
     public TableColumn col13;
     public TableColumn col14;
 
+    public ImageView view;
 
     public void initialize(){
 
+        //Fruits.readFruits();
 
-
-        Fruits.readFruits();
+        //Fruits.readFile(new File("res/FruitFile"));
+        //Fruits.restore();
 
         col1.setCellValueFactory(new PropertyValueFactory<Fruits, String>("name"));
 
@@ -225,10 +236,39 @@ public class Controller {
 
     public void addRow() {
         // Update model
-        System.out.println("This is happening!");
+        //System.out.println("This is happening!");
         Fruits.addEmptyFruit();
         // Update status
         //statusLabel.setText("Added empty album.  Go ahead and edit its data.");
+    }
+
+    public void addImage(){
+
+        chooser.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("Image Files", "*.png","*.jpg","*.jpeg")
+        );
+
+        File image = chooser.showOpenDialog(this.primaryStage);
+        Image newImage = new Image(image.toURI().toString());
+
+        view.setPreserveRatio(true);
+        view.setFitWidth(188);
+
+        view.setImage(newImage);
+
+    }
+
+    public void importFruits(){
+        FileChooser choice = new FileChooser();
+
+        File file = choice.showOpenDialog(this.primaryStage);
+
+        Fruits.readFile(file);
+    }
+
+
+    public void saveEverything(){
+        Fruits.saveFruits();
     }
 
 
